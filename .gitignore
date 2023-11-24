@@ -27,6 +27,10 @@ out/
 build
 dist
 
+# Custom
+.vscode
+*.sh
+
 
 # Debug
 npm-debug.log*

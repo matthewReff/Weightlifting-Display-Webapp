@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Card } from "@repo/ui/card";
-import { Code } from "@repo/ui/code";
+import { Card } from "@tendec/weightlifting-webapp-ui/card";
+import { Code } from "@tendec/weightlifting-webapp-ui/code";
 import styles from "./page.module.css";
 
 function Gradient({

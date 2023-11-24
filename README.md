@@ -1,3 +1,5 @@
+node + react + express + turborepo
+
 # Turborepo starter
 
 This is an official starter Turborepo.
