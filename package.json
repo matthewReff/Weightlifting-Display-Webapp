@@ -1,0 +1,7 @@
+{
+  "name": "@tendec/weightlifting-webapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Matthew Reff <reff.matthew@gmail.com>",
+  "license": "MIT"
+}
