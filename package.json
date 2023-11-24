@@ -2,7 +2,9 @@
   "name": "@tendec/weightlifting-webapp",
   "private": true,
   "scripts": {
+    "frontend": "yarn workspace @tendec/react-frontend",
     "build": "turbo build",
+    "start": "yarn frontend start",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
