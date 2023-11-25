@@ -3,8 +3,9 @@
   "private": true,
   "scripts": {
     "frontend": "yarn workspace @tendec/react-frontend",
+    "backend": "yarn workspace @tendec/express-backend",
     "build": "turbo build",
-    "start": "yarn frontend start",
+    "start": "concurrently \"yarn frontend start\" \"yarn backend start\"",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -19,5 +20,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
