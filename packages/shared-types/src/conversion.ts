@@ -1,9 +1,8 @@
 import { groupBy } from "lodash";
-import { Lift, LiftingDay, SpreadsheetEntry } from "./types"
+import { Lift, LiftingDay, Set, SpreadsheetEntry } from "./types"
 
 export const liftingDayToSpreadsheetEntires = (liftingDay: LiftingDay): SpreadsheetEntry[] => {
     const { date, bodyWeight, lifts } = liftingDay;
-    const a = lifts[0];
     const spreadsheetEntires: SpreadsheetEntry[] = [];
     for(const liftEntry of lifts) {
         const { exerciseName, sets } = liftEntry;
@@ -23,11 +22,41 @@ export const liftingDayToSpreadsheetEntires = (liftingDay: LiftingDay): Spreadsh
 }
 
 export const spreadsheetEntriesToLiftingDay = (spreadsheetEntries: SpreadsheetEntry[]): LiftingDay => {
-  // TODO
+  const date = spreadsheetEntries[0]?.date;
+  const bodyWeight = spreadsheetEntries[0]?.bodyWeight;
+
+  if (!date || !bodyWeight) {
+    throw new Error("Could not find data from spreadsheet Entries");
+  }
+
+  const exercises = groupBy(spreadsheetEntries, (entry) => entry.exerciseName);
+
+  const lifts: Lift[] = [];
+  for(const entriesForExercise of Object.values(exercises)) {
+    const exerciseName = entriesForExercise[0]?.exerciseName;
+    if (!exerciseName) {
+      throw new Error("Could not find data from spreadsheet Entries");
+    }
+
+    const sets: Set[] = [];
+    for(const setEntry of entriesForExercise) {
+      const { repetitions, liftedWeight } = setEntry;
+
+      sets.push({
+        liftedWeight,
+        repetitions
+      });
+    }
+    lifts.push({
+      exerciseName,
+      sets
+    });
+  }
+
   return {
-    date: "",
-    bodyWeight: 100,
-    lifts: []
+    date,
+    bodyWeight,
+    lifts
   };
 }
 
