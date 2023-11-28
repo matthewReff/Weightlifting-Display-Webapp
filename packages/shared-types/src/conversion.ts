@@ -6,7 +6,7 @@ export const liftingDayToSpreadsheetEntires = (liftingDay: LiftingDay): Spreadsh
     const spreadsheetEntires: SpreadsheetEntry[] = [];
     for(const liftEntry of lifts) {
         const { exerciseName, sets } = liftEntry;
-        for(const setEntry of liftEntry.sets) {
+        for(const setEntry of sets) {
           const { liftedWeight, repetitions } = setEntry;
 
           spreadsheetEntires.push({
