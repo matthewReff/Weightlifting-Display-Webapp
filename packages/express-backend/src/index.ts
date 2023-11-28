@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import helloApiRoutes from "./endpoints/hello";
+import { getData } from "./db/get-data";
 
 const app = express();
 const port = 3001;
@@ -12,7 +13,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.use("/hello", helloApiRoutes);
 
-
 app.listen(port, () => {
   console.log(`Express app listening on port ${port}`);
-})
+});
