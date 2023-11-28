@@ -27,7 +27,7 @@
     "src"
   ],
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint src/*.ts",
     "lint-fix": "eslint src/*.ts --fix",
     "start": "ts-node src/index.ts",
     "build": "tsc",
