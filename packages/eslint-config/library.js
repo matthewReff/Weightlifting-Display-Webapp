@@ -31,4 +31,8 @@ module.exports = {
       files: ["*.js?(x)", "*.ts?(x)"],
     },
   ],
+  rules: {
+    "indent": ["error", 2],
+    "comma-dangle": ["error", "always-multiline"]
+  }
 };

@@ -2,23 +2,23 @@ import { groupBy } from "lodash";
 import { Lift, LiftingDay, Set, SpreadsheetEntry } from "./types"
 
 export const liftingDayToSpreadsheetEntires = (liftingDay: LiftingDay): SpreadsheetEntry[] => {
-    const { date, bodyWeight, lifts } = liftingDay;
-    const spreadsheetEntires: SpreadsheetEntry[] = [];
-    for(const liftEntry of lifts) {
-        const { exerciseName, sets } = liftEntry;
-        for(const setEntry of sets) {
-          const { liftedWeight, repetitions } = setEntry;
+  const { date, bodyWeight, lifts } = liftingDay;
+  const spreadsheetEntires: SpreadsheetEntry[] = [];
+  for(const liftEntry of lifts) {
+    const { exerciseName, sets } = liftEntry;
+    for(const setEntry of sets) {
+      const { liftedWeight, repetitions } = setEntry;
 
-          spreadsheetEntires.push({
-            date,
-            bodyWeight,
-            exerciseName,
-            repetitions,
-            liftedWeight
-          });
-        }
+      spreadsheetEntires.push({
+        date,
+        bodyWeight,
+        exerciseName,
+        repetitions,
+        liftedWeight,
+      });
     }
-    return spreadsheetEntires;
+  }
+  return spreadsheetEntires;
 }
 
 export const spreadsheetEntriesToLiftingDay = (spreadsheetEntries: SpreadsheetEntry[]): LiftingDay => {
@@ -44,19 +44,19 @@ export const spreadsheetEntriesToLiftingDay = (spreadsheetEntries: SpreadsheetEn
 
       sets.push({
         liftedWeight,
-        repetitions
+        repetitions,
       });
     }
     lifts.push({
       exerciseName,
-      sets
+      sets,
     });
   }
 
   return {
     date,
     bodyWeight,
-    lifts
+    lifts,
   };
 }
 
