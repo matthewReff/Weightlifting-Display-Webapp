@@ -35,8 +35,10 @@
   },
   "dependencies": {
     "@tendec/shared-types": "*",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.10.0",
+    "cors": "^2.8.5",
     "csv-parse": "^5.5.2",
     "express": "^4.18.2",
     "ts-node": "^10.9.1",
