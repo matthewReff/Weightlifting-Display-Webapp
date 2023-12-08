@@ -4,7 +4,7 @@ import { getStructuredData } from "../../db/get-data";
 
 const router = Router();
 
-interface BodyWeightData {
+export interface BodyWeightData {
     bodyWeight: number,
     date: string
 }
