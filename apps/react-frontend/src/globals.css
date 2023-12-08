@@ -1,3 +1,9 @@
+body
+{
+	background-color: theme('colors.background');
+	color:  theme('colors.primary');
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
