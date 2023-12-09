@@ -12,7 +12,6 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 }
 app.use(cors(corsOptions));
-console.log(corsOptions);
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
   res.status(500).send("Something on the server failed");

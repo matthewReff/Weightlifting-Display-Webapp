@@ -9,6 +9,6 @@ export const fetchBodyweightData = async () => {
         throw new Error("Failed to fetch body weight response " + debugInfo);
     }
 
-    const bodyWeightData = await bodyWeightResponse.json() as BodyWeightData;
+    const bodyWeightData = await bodyWeightResponse.json() as BodyWeightData[];
     return bodyWeightData;
 }
