@@ -2,7 +2,6 @@ import { Request, Response, Router } from "express";
 import { LiftingDay } from "@tendec/shared-types/src/types";
 import { getStructuredData } from "../../db/get-data";
 
-const router = Router();
 
 export interface BodyWeightData {
     bodyWeight: number,
@@ -14,9 +13,14 @@ const liftingDayToBodyWeightData = (liftingDay: LiftingDay): BodyWeightData => {
         date: liftingDay.date
     }
 }
-router.get('/body-weight', async (req: Request, res: Response) => {
+
+export type GetBodyWeightDataResponse = BodyWeightData[];
+
+const router = Router();
+router.get('/body-weight', async (req: Request<{}, {}, {}, {}>, res: Response<GetBodyWeightDataResponse>) => {
     const structuredLiftingData = await getStructuredData();
     const bodyWeightData = structuredLiftingData.map(liftingDayToBodyWeightData);
+
     res.json(bodyWeightData);
 });
 
