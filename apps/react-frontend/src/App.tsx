@@ -1,6 +1,5 @@
-import { useState } from "react";
 import BodyWeightGraph from "./ui/graphs/body-weight-graph";
-import { WindowDimensions, getWindowDimensions, useWindowSize } from "./utils";
+import { useWindowSize } from "./utils";
 
 function App() {
   const { width, height} = useWindowSize();
