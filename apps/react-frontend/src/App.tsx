@@ -1,9 +1,16 @@
+import { useState } from "react";
 import BodyWeightGraph from "./ui/graphs/body-weight-graph";
+import { WindowDimensions, getWindowDimensions, useWindowSize } from "./utils";
 
 function App() {
+  const { width, height} = useWindowSize();
+
+  const halfWidth = width / 2;
+  const halfHeight = height / 2;
+
   return (
   <div className="bg-background">
-    <BodyWeightGraph />
+    <BodyWeightGraph width={halfWidth} height={halfHeight}/>
   </div>
   );
 }

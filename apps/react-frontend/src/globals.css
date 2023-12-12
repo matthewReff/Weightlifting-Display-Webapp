@@ -1,6 +1,6 @@
 body
 {
-	background-color: theme('colors.background');
+	background-color: theme('colors.background.900');
 	color:  theme('colors.primary');
 }
 
