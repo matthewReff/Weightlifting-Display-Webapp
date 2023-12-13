@@ -13,12 +13,12 @@ export const loadData = async (): Promise<SpreadsheetEntry[]> => {
 
   let csvData: SpreadsheetEntry[] = [];
   const parser = parse(fileContent, {
-      delimiter: ',',
-      columns: headers,
+    delimiter: ',',
+    columns: headers,
   });
   parser.on('readable', function(){
     let record; while ((record = parser.read()) !== null) {
-    csvData.push(record);
+      csvData.push(record);
     }
   });
   await finished(parser);

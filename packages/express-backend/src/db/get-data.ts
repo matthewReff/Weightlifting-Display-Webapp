@@ -4,20 +4,20 @@ import { loadData } from "./load-data";
 
 let data: SpreadsheetEntry[];
 export const getData = async () => {
-    if (data) {
-        return data;
-    } else {
-        data = await loadData();
-        return data;
-    }
+  if (data) {
+    return data;
+  } else {
+    data = await loadData();
+    return data;
+  }
 }
 
 let structuredData: LiftingDay[];
 export const getStructuredData = async () => {
-    if (structuredData) {
-        return structuredData;
-    } else {
-        data = await loadData();
-        return spreadsheetEntriesToLiftingDays(data);
-    }
+  if (structuredData) {
+    return structuredData;
+  } else {
+    data = await loadData();
+    return spreadsheetEntriesToLiftingDays(data);
+  }
 }

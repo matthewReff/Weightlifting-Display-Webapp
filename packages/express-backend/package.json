@@ -27,8 +27,8 @@
     "src"
   ],
   "scripts": {
-    "lint": "eslint src/*.ts",
-    "lint-fix": "eslint src/*.ts --fix",
+    "lint": "eslint src/**/*.ts",
+    "lint-fix": "eslint src/**/*.ts --fix",
     "start": "ts-node src/index.ts",
     "build": "tsc",
     "serve": " node dist/index.js"
