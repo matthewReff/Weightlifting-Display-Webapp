@@ -4,6 +4,23 @@ import { parse } from "csv-parse";
 import { finished } from 'stream/promises';
 import { SpreadsheetEntry } from "@tendec/shared-types/src/types";
 
+interface RawSpreadsheetEntry {
+  date: string,
+  bodyWeight: string,
+  exerciseName: string,
+  repetitions: string,
+  liftedWeight: string
+}
+
+const convertRawSpreadsheetEntry = (rawEntry: RawSpreadsheetEntry): SpreadsheetEntry => {
+  return {
+    date: rawEntry.date,
+    bodyWeight: Number(rawEntry.bodyWeight),
+    exerciseName: rawEntry.exerciseName,
+    repetitions: Number(rawEntry.repetitions),
+    liftedWeight: Number(rawEntry.liftedWeight),
+  }
+}
 export const loadData = async (): Promise<SpreadsheetEntry[]> => {
   const csvFilePath = path.resolve(__dirname, '../../data/data.csv');
 
@@ -11,7 +28,7 @@ export const loadData = async (): Promise<SpreadsheetEntry[]> => {
 
   const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
 
-  let csvData: SpreadsheetEntry[] = [];
+  let csvData: RawSpreadsheetEntry[] = [];
   const parser = parse(fileContent, {
     delimiter: ',',
     columns: headers,
@@ -22,26 +39,5 @@ export const loadData = async (): Promise<SpreadsheetEntry[]> => {
     }
   });
   await finished(parser);
-  return csvData;
+  return csvData.map(convertRawSpreadsheetEntry);
 };
-
-/*
-const processFile = async () => {
-  const records = [];
-  const parser = fs
-    .createReadStream(`${os.tmpdir()}/input.csv`)
-    .pipe(parse({
-    // CSV options if any
-    }));
-  parser.on('readable', function(){
-    let record; while ((record = parser.read()) !== null) {
-    // Work with each record
-      records.push(record);
-    }
-  });
-  await finished(parser);
-  return records;
-};
-// Parse the CSV content
-const records = await processFile();
-*/

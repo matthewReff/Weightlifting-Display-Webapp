@@ -8,7 +8,27 @@ export interface ExerciseMaxData {
 }
 
 const extractExerciseMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseName: string): ExerciseMaxData[] => {
-  return [];
+  const rollingMaxExercises: ExerciseMaxData[] = [];
+
+  const MIN_WEIGHT = -999;
+  let maxWeightSoFar = MIN_WEIGHT;
+  for(const liftingDay of liftingDays) {
+    const exercisesForDay = liftingDay.lifts.filter(lift => lift.exerciseName === exerciseName);
+    const setsOfExerciseForDay = exercisesForDay.flatMap(a => a.sets);
+    for (const set of setsOfExerciseForDay) {
+      const liftedWeight = set.liftedWeight;
+      if (liftedWeight > maxWeightSoFar) {
+        maxWeightSoFar = liftedWeight;
+      }
+    }
+    if (maxWeightSoFar !== MIN_WEIGHT) {
+      rollingMaxExercises.push({
+        weight: maxWeightSoFar,
+        date: liftingDay.date
+      });
+    }
+  }
+  return rollingMaxExercises;
 }
 
 export interface GetExerciseMaxQueryParams extends Record<string, string>{
