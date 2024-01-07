@@ -31,22 +31,20 @@ function BodyWeightGraph({
 
   const BodyWeightTooltip = ({
     active,
-    payload,
-    label,
-}: TooltipProps<ValueType, NameType>) => {
-  if (!active || !payload) {
-    return null
-  }
+    payload
+  }: TooltipProps<ValueType, NameType>) => {
+    if (!active || !payload) {
+      return null
+    }
 
-  const rawInfo = payload[0].payload as BodyWeightData;
-  return (
-    <div className="bg-background-600 p-2">
-      <p>{rawInfo.date}</p>
-      <p>Body Weight: {rawInfo.bodyWeight}</p>
-    </div>
-  );
-};
-
+    const rawInfo = payload[0].payload as BodyWeightData;
+    return (
+      <div className="bg-background-600 p-2">
+        <p>{rawInfo.date}</p>
+        <p>Body Weight: {rawInfo.bodyWeight}</p>
+      </div>
+    );
+  };
 
   return (
     <div className="bg-background-800 h-min w-min pr-6 text-center border-2">

@@ -55,22 +55,21 @@ function ExerciseWeightGraph({
 
   const ExerciseWeightTooltip = ({
     active,
-    payload,
-    label,
-}: TooltipProps<ValueType, NameType>) => {
-  if (!active || !payload) {
-    return null
-  }
+    payload
+  }: TooltipProps<ValueType, NameType>) => {
+    if (!active || !payload) {
+      return null
+    }
 
-  const rawInfo = payload[0].payload as ExerciseMaxData;
-  return (
-    <div className="bg-background-600 p-2">
-      <p>{rawInfo.date}</p>
-      <p>Weight: {rawInfo.weight}</p>
-      <p>Reps: {rawInfo.repetitions}</p>
-    </div>
-  );
-};
+    const rawInfo = payload[0].payload as ExerciseMaxData;
+    return (
+      <div className="bg-background-600 p-2">
+        <p>{rawInfo.date}</p>
+        <p>Weight: {rawInfo.weight}</p>
+        <p>Reps: {rawInfo.repetitions}</p>
+      </div>
+    );
+  };
 
 
   return (
