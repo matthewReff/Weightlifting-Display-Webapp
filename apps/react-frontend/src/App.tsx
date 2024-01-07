@@ -1,5 +1,5 @@
 import BodyWeightGraph from "./ui/graphs/body-weight-graph";
-import ExerciseMaxGraph from "./ui/graphs/exercise-max-graph";
+import ExerciseMaxGraph from "./ui/graphs/exercise-weight-graph";
 import { useWindowSize } from "./utils";
 
 function App() {
@@ -17,28 +17,19 @@ function App() {
     <ExerciseMaxGraph
       width={halfWidth}
       height={halfHeight}
-      range={{
-        minimum: 0,
-        maximum: 200
-      }}
+      range={"auto"}
       exerciseName="Squat"
     />
     <ExerciseMaxGraph
       width={halfWidth}
       height={halfHeight}
-      range={{
-        minimum: 100,
-        maximum: 200
-      }}
+      range={"auto"}
       exerciseName="Bench"
     />
     <ExerciseMaxGraph
       width={halfWidth}
       height={halfHeight}
-      range={{
-        minimum: 200,
-        maximum: 300
-      }}
+      range={"auto"}
       exerciseName="Deadlift"
     />
   </div>

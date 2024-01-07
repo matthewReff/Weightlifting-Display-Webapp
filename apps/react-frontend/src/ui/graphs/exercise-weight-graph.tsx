@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchBodyweightData } from "../../lib/backend/fetch-bodyweight";
 import LoadingIndicator from "../loading-indicator";
-import { BodyWeightData } from "@tendec/express-backend/src/endpoints/data/body-weight";
 import { Line, Tooltip, TooltipProps, XAxis, YAxis } from "recharts";
 import { PRIMARY_COLOR } from "../../constants";
 import { ValueType, NameType } from "recharts/types/component/DefaultTooltipContent";
@@ -13,27 +11,27 @@ export type GraphRange =  {
   minimum: number,
   maximum: number
 } | "auto"
-export interface ExerciseMaxGraph {
+export interface ExerciseWeightGraph {
   width?: number,
   height?: number,
   range: GraphRange,
   exerciseName: string
 }
-function ExerciseMaxGraph({
+function ExerciseWeightGraph({
   width = 500,
   height = 300,
   range,
   exerciseName
-}: ExerciseMaxGraph) {
-  const [exerciseMaxData, setExerciseMaxData] = useState<ExerciseMaxData[]>();
+}: ExerciseWeightGraph) {
+  const [exerciseWeightData, setExerciseWeightData] = useState<ExerciseMaxData[]>();
 
   useEffect(() => {
     fetchExerciseMax(exerciseName)
-    .then(setExerciseMaxData)
+    .then(setExerciseWeightData)
     .catch(console.error)
   }, []);
 
-  if (!exerciseMaxData) {
+  if (!exerciseWeightData) {
     return (
       <LoadingIndicator/>
     )
@@ -42,7 +40,7 @@ function ExerciseMaxGraph({
   let yMin = 0;
   let yMax = 0;
   if (range === "auto") {
-    const weights = exerciseMaxData.map(exercise => exercise.weight);
+    const weights = exerciseWeightData.map(exercise => exercise.weight);
     const maxWeight = Math.max(...weights);
     const minWeight = Math.min(...weights);
 
@@ -55,7 +53,7 @@ function ExerciseMaxGraph({
     yMax = range.maximum;
   }
 
-  const ExerciseMaxTooltip = ({
+  const ExerciseWeightTooltip = ({
     active,
     payload,
     label,
@@ -68,7 +66,7 @@ function ExerciseMaxGraph({
   return (
     <div className="bg-background-600 p-2">
       <p>{rawInfo.date}</p>
-      <p>Max Weight: {rawInfo.weight}</p>
+      <p>Weight: {rawInfo.weight}</p>
     </div>
   );
 };
@@ -77,14 +75,14 @@ function ExerciseMaxGraph({
   return (
     <div className="bg-background-800 h-min w-min pr-6 text-center border-2">
       <h1 className="font-bold">Max {exerciseName} Weight</h1>
-      <LineChart width={width} height={height} data={exerciseMaxData}>
+      <LineChart width={width} height={height} data={exerciseWeightData}>
         <XAxis dataKey="date" stroke={PRIMARY_COLOR}/>
         <YAxis domain={[yMin, yMax]} stroke={PRIMARY_COLOR}/>
         <Line type="monotone" dataKey="weight" stroke={PRIMARY_COLOR}/>
-        <Tooltip content={<ExerciseMaxTooltip/>}/>
+        <Tooltip content={<ExerciseWeightTooltip/>}/>
       </LineChart>
     </div>
   );
 }
 
-export default ExerciseMaxGraph
+export default ExerciseWeightGraph
