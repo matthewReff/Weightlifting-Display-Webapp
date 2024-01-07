@@ -9,18 +9,20 @@ import { LineChart } from "recharts";
 import { ExerciseMaxData } from "@tendec/express-backend/src/endpoints/data/exercise-max";
 import { fetchExerciseMax } from "../../lib/backend/fetch-exercise-max";
 
-interface ExerciseMaxGraph {
+export type GraphRange =  {
+  minimum: number,
+  maximum: number
+} | "auto"
+export interface ExerciseMaxGraph {
   width?: number,
   height?: number,
-  yMin: number,
-  yMax: number,
+  range: GraphRange,
   exerciseName: string
 }
 function ExerciseMaxGraph({
   width = 500,
-  height= 300,
-  yMin,
-  yMax,
+  height = 300,
+  range,
   exerciseName
 }: ExerciseMaxGraph) {
   const [exerciseMaxData, setExerciseMaxData] = useState<ExerciseMaxData[]>();
@@ -35,6 +37,22 @@ function ExerciseMaxGraph({
     return (
       <LoadingIndicator/>
     )
+  }
+
+  let yMin = 0;
+  let yMax = 0;
+  if (range === "auto") {
+    const weights = exerciseMaxData.map(exercise => exercise.weight);
+    const maxWeight = Math.max(...weights);
+    const minWeight = Math.min(...weights);
+
+    const padding = maxWeight * 0.2;
+
+    yMin = Math.max(0, minWeight - padding);
+    yMax = maxWeight + padding;
+  } else {
+    yMax = range.minimum;
+    yMax = range.maximum;
   }
 
   const ExerciseMaxTooltip = ({

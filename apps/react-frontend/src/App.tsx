@@ -17,22 +17,28 @@ function App() {
     <ExerciseMaxGraph
       width={halfWidth}
       height={halfHeight}
-      yMin={0}
-      yMax={200}
+      range={{
+        minimum: 0,
+        maximum: 200
+      }}
       exerciseName="Squat"
     />
     <ExerciseMaxGraph
       width={halfWidth}
       height={halfHeight}
-      yMin={100}
-      yMax={200}
+      range={{
+        minimum: 100,
+        maximum: 200
+      }}
       exerciseName="Bench"
     />
     <ExerciseMaxGraph
       width={halfWidth}
       height={halfHeight}
-      yMin={200}
-      yMax={300}
+      range={{
+        minimum: 200,
+        maximum: 300
+      }}
       exerciseName="Deadlift"
     />
   </div>
