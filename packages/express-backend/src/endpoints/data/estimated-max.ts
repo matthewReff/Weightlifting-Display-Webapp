@@ -3,36 +3,56 @@ import { LiftingDay } from "@tendec/shared-types/src/types";
 import { getStructuredData } from "../../db/get-data";
 
 export interface EstimatedMaxData {
-    weight: number,
-    date: string
+  weight: number,
+  date: string
 }
 
-interface EstimatedOneRepMaxWithBrzycki {
-  liftedWeight: number,
-  repetitions: number
-}
 const estimatedOneRepMaxWithBrzycki = ({
   liftedWeight,
   repetitions
-}: EstimatedOneRepMaxWithBrzycki) => {
+}: EstimatedMaxArgs) => {
   return liftedWeight * ( 36 / ( 37 - repetitions));
 }
 
-interface EstimatedOneRepMaxWithEpley {
-  liftedWeight: number,
-  repetitions: number
-}
 const estimatedOneRepMaxWithEpley = ({
   liftedWeight,
   repetitions
-}: EstimatedOneRepMaxWithBrzycki) => {
+}: EstimatedMaxArgs) => {
   if (repetitions === 1) {
     return liftedWeight;
   }
   return liftedWeight * ( 1 + ( repetitions / 30));
 }
 
-const extractEstimatedMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseName: string): EstimatedMaxData[] => {
+export type OneRepEstimateFunction = "Brzycki" | "Epley";
+interface EstimatedMaxArgs {
+  liftedWeight: number,
+  repetitions: number
+}
+interface GetEstimatedMax extends EstimatedMaxArgs {
+  estimationFunction?: OneRepEstimateFunction
+}
+const getEstimatedMax = ({
+  estimationFunction = "Brzycki",
+  liftedWeight,
+  repetitions
+}: GetEstimatedMax): number => {
+  if (estimationFunction === "Brzycki") {
+    return estimatedOneRepMaxWithBrzycki({
+      liftedWeight,
+      repetitions
+    })
+  } else if (estimationFunction === "Epley") {
+    return estimatedOneRepMaxWithEpley({
+      liftedWeight,
+      repetitions
+    });
+  }
+
+  throw new Error(`Unknown one rep max estimated function ${estimationFunction}`);
+}
+
+const extractEstimatedMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseName: string, maxEstimationFunction?: OneRepEstimateFunction): EstimatedMaxData[] => {
   const estimatedMaxExercises: EstimatedMaxData[] = [];
 
   const MIN_WEIGHT = -999;
@@ -43,7 +63,8 @@ const extractEstimatedMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseN
     for (const set of setsOfExerciseForDay) {
       const { liftedWeight, repetitions } = set;
 
-      const estimatedMaxFromSet = estimatedOneRepMaxWithBrzycki({
+      const estimatedMaxFromSet = getEstimatedMax({
+        estimationFunction: maxEstimationFunction,
         liftedWeight,
         repetitions
       });
@@ -61,17 +82,18 @@ const extractEstimatedMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseN
   return estimatedMaxExercises;
 }
 
-export interface GetEstimatedMaxQueryParams extends Record<string, string>{
-  exerciseName: string
+export interface GetEstimatedMaxQueryParams extends Record<string, string | undefined>{
+  exerciseName: string,
+  maxEstimationFunction?: OneRepEstimateFunction
 }
 export type GetEstimatedMaxResponse = EstimatedMaxData[];
 
 const router = Router();
 router.get('/estimated-max', async (req: Request<{}, {}, {}, GetEstimatedMaxQueryParams>, res: Response<GetEstimatedMaxResponse>) => {
-  const { exerciseName } = req.query;
+  const { exerciseName, maxEstimationFunction } = req.query;
 
   const structuredLiftingData = await getStructuredData();
-  const estimatedMaxData = extractEstimatedMaxFromLiftingDays(structuredLiftingData, exerciseName);
+  const estimatedMaxData = extractEstimatedMaxFromLiftingDays(structuredLiftingData, exerciseName, maxEstimationFunction);
 
   res.json(estimatedMaxData);
 });
