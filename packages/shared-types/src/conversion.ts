@@ -25,7 +25,7 @@ export const spreadsheetEntriesToLiftingDay = (spreadsheetEntries: SpreadsheetEn
   const date = spreadsheetEntries[0]?.date;
   const bodyWeight = spreadsheetEntries[0]?.bodyWeight;
 
-  if (!date || !bodyWeight) {
+  if (date === undefined || bodyWeight === undefined) {
     throw new Error("Could not find data from spreadsheet Entries");
   }
 
