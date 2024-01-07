@@ -6,8 +6,8 @@ export interface WindowDimensions {
 }
 export function getWindowDimensions(): WindowDimensions {
   return {
-      width: window.innerWidth,
-      height: window.innerHeight
+    width: window.innerWidth,
+    height: window.innerHeight
   }
 }
 

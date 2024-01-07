@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchBodyweightData } from "../../lib/backend/fetch-bodyweight";
-import LoadingIndicator from "../loading-indicator";
+import LoadingIndicator from "../../components/loading-indicator";
 import { BodyWeightData } from "@tendec/express-backend/src/endpoints/data/body-weight";
 import { Line, Tooltip, TooltipProps, XAxis, YAxis } from "recharts";
 import { PRIMARY_COLOR } from "../../constants";

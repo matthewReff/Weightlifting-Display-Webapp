@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import LoadingIndicator from "../loading-indicator";
+import LoadingIndicator from "../../components/loading-indicator";
 import { Line, Tooltip, TooltipProps, XAxis, YAxis } from "recharts";
 import { PRIMARY_COLOR } from "../../constants";
 import { ValueType, NameType } from "recharts/types/component/DefaultTooltipContent";
