@@ -67,6 +67,7 @@ function ExerciseWeightGraph({
     <div className="bg-background-600 p-2">
       <p>{rawInfo.date}</p>
       <p>Weight: {rawInfo.weight}</p>
+      <p>Reps: {rawInfo.repetitions}</p>
     </div>
   );
 };

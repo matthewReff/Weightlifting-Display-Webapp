@@ -1,9 +1,10 @@
 import { Request, Response, Router } from "express";
-import { LiftingDay } from "@tendec/shared-types/src/types";
+import { LiftingDay, Set } from "@tendec/shared-types/src/types";
 import { getStructuredData } from "../../db/get-data";
 
 export interface ExerciseMaxData {
     weight: number,
+    repetitions: number,
     date: string
 }
 
@@ -11,19 +12,23 @@ const extractExerciseMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseNa
   const rollingMaxExercises: ExerciseMaxData[] = [];
 
   const MIN_WEIGHT = -999;
-  let maxWeightSoFar = MIN_WEIGHT;
+  let maxSetSoFar: Set = {
+    liftedWeight: MIN_WEIGHT,
+    repetitions: 0
+  }
   for(const liftingDay of liftingDays) {
     const exercisesForDay = liftingDay.lifts.filter(lift => lift.exerciseName === exerciseName);
     const setsOfExerciseForDay = exercisesForDay.flatMap(a => a.sets);
     for (const set of setsOfExerciseForDay) {
       const liftedWeight = set.liftedWeight;
-      if (liftedWeight > maxWeightSoFar) {
-        maxWeightSoFar = liftedWeight;
+      if (liftedWeight > maxSetSoFar.liftedWeight) {
+        maxSetSoFar = set;
       }
     }
-    if (maxWeightSoFar !== MIN_WEIGHT) {
+    if (maxSetSoFar.liftedWeight !== MIN_WEIGHT) {
       rollingMaxExercises.push({
-        weight: maxWeightSoFar,
+        weight: maxSetSoFar.liftedWeight,
+        repetitions: maxSetSoFar.repetitions,
         date: liftingDay.date
       });
     }
