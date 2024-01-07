@@ -10,6 +10,7 @@ export interface Set {
     liftedWeight: number,
     repetitions: number
 }
+
 export interface Lift {
     exerciseName: string,
     sets: Set[]

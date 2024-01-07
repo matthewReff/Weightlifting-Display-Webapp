@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { LiftingDay, Set } from "@tendec/shared-types/src/types";
+import { setAGreaterThanB } from "@tendec/shared-types/src/type-functions";
 import { getStructuredData } from "../../db/get-data";
 
 export interface ExerciseMaxData {
@@ -20,8 +21,7 @@ const extractExerciseMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseNa
     const exercisesForDay = liftingDay.lifts.filter(lift => lift.exerciseName === exerciseName);
     const setsOfExerciseForDay = exercisesForDay.flatMap(a => a.sets);
     for (const set of setsOfExerciseForDay) {
-      const liftedWeight = set.liftedWeight;
-      if (liftedWeight > maxSetSoFar.liftedWeight) {
+      if (setAGreaterThanB(set, maxSetSoFar)) {
         maxSetSoFar = set;
       }
     }
