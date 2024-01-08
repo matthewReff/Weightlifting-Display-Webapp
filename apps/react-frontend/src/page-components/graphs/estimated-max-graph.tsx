@@ -71,7 +71,7 @@ function EstimatedMaxWeightGraph({
 
   return (
     <div className="bg-background-800 h-min w-min pr-6 text-center border-2">
-      <h1 className="font-bold">Estimated Max {exerciseName} Weight</h1>
+      <h1 className="font-bold">{`Estimated Max ${exerciseName} Weight (Lbs)`}</h1>
       <LineChart width={width} height={height} data={estimatedMaxData}>
         <XAxis dataKey="date" stroke={PRIMARY_COLOR}/>
         <YAxis domain={[yMin, yMax]} stroke={PRIMARY_COLOR}/>
