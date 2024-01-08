@@ -11,7 +11,7 @@ export type GraphRange =  {
   minimum: number,
   maximum: number
 } | "auto"
-export interface ExerciseWeightGraph {
+export interface ExerciseWeightGraphProps {
   width?: number,
   height?: number,
   range: GraphRange,
@@ -21,14 +21,14 @@ function ExerciseWeightGraph({
   width = 500,
   height = 300,
   range,
-  exerciseName
-}: ExerciseWeightGraph) {
+  exerciseName,
+}: ExerciseWeightGraphProps) {
   const [exerciseWeightData, setExerciseWeightData] = useState<ExerciseMaxData[]>();
 
   useEffect(() => {
     fetchExerciseMax(exerciseName)
-    .then(setExerciseWeightData)
-    .catch(console.error)
+      .then(setExerciseWeightData)
+      .catch(console.error)
   }, []);
 
   if (!exerciseWeightData) {
@@ -56,7 +56,7 @@ function ExerciseWeightGraph({
 
   const ExerciseWeightTooltip = ({
     active,
-    payload
+    payload,
   }: TooltipProps<ValueType, NameType>) => {
     if (!active || !payload) {
       return null
