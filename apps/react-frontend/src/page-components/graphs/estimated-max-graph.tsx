@@ -4,7 +4,7 @@ import { Line, Tooltip, TooltipProps, XAxis, YAxis } from "recharts";
 import { PRIMARY_COLOR } from "../../constants";
 import { ValueType, NameType } from "recharts/types/component/DefaultTooltipContent";
 import { LineChart } from "recharts";
-import { EstimatedMaxData } from "@tendec/express-backend/src/endpoints/data/estimated-max";
+import { EstimatedMaxData, OneRepEstimateFunction } from "@tendec/express-backend/src/endpoints/data/estimated-max";
 import { GraphRange } from "./types";
 import { fetchEstimatedMax } from "../../lib/backend/fetch-estimated-max";
 import { roundToNearest } from "../../lib/round";
@@ -13,21 +13,23 @@ export interface ExerciseWeightGraphProps {
   width?: number,
   height?: number,
   range: GraphRange,
-  exerciseName: string
+  exerciseName: string,
+  maxEstimateFunction: OneRepEstimateFunction
 }
 function EstimatedMaxWeightGraph({
   width = 500,
   height = 300,
   range,
   exerciseName,
+  maxEstimateFunction = "Brzycki"
 }: ExerciseWeightGraphProps) {
   const [estimatedMaxData, setEstimatedMaxData] = useState<EstimatedMaxData[]>();
 
   useEffect(() => {
-    fetchEstimatedMax(exerciseName, "Brzycki")
+    fetchEstimatedMax(exerciseName, maxEstimateFunction)
       .then(setEstimatedMaxData)
       .catch(console.error)
-  }, []);
+  }, [ maxEstimateFunction ]);
 
   if (!estimatedMaxData) {
     return (

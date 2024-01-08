@@ -27,8 +27,7 @@ function App() {
         onChange={e => {
           setSelectedGraphsToDisplay(e.target.value);
         }}
-      >
-      </Select>
+      />
       { selectedGraphsToDisplay === GraphsToDisplay.MEASURED_MAX &&
         <MeasuredMaxGraphs />
       }
