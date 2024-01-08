@@ -44,9 +44,10 @@ function ExerciseWeightGraph({
     const maxWeight = Math.max(...weights);
     const minWeight = Math.min(...weights);
 
-    const padding = maxWeight * 0.2;
+    const magnitude  = Math.abs(maxWeight - minWeight);
+    const padding = magnitude * 0.2;
 
-    yMin = Math.max(0, minWeight - padding);
+    yMin = minWeight - padding;
     yMax = maxWeight + padding;
   } else {
     yMax = range.minimum;
