@@ -1,18 +1,18 @@
 import { getDebugInfoFromResponse } from "../api-utils"
 import { BASE_API_URL } from "@tendec/express-backend/src/constants"
-import { GetExerciseMaxResponse, GetExerciseMaxQueryParams } from "@tendec/express-backend/src/endpoints/data/exercise-max";
+import { GetMeasuredMaxResponse, GetMeasuredMaxQueryParams } from "@tendec/express-backend/src/endpoints/data/measured-max";
 
-export const fetchExerciseMax = async (exerciseName: string) => {
-  const queryParams: GetExerciseMaxQueryParams = {
-    exerciseName: exerciseName
+export const fetchMeasuredMax = async (exerciseName: string) => {
+  const queryParams: GetMeasuredMaxQueryParams = {
+    exerciseName: exerciseName,
   }
   const searchParams = new URLSearchParams(queryParams);
   const exerciseMaxResponse = await fetch(`${BASE_API_URL}/data/exercise-max?` + searchParams);
   if (!exerciseMaxResponse.ok) {
-      const debugInfo = getDebugInfoFromResponse(exerciseMaxResponse);
-      throw new Error("Failed to fetch body weight response " + debugInfo);
+    const debugInfo = getDebugInfoFromResponse(exerciseMaxResponse);
+    throw new Error("Failed to fetch body weight response " + debugInfo);
   }
 
-  const exerciseMaxInfo = await exerciseMaxResponse.json() as GetExerciseMaxResponse;
+  const exerciseMaxInfo = await exerciseMaxResponse.json() as GetMeasuredMaxResponse;
   return exerciseMaxInfo;
 }

@@ -1,4 +1,4 @@
-import ExerciseMaxGraph from "./graphs/exercise-weight-graph";
+import ExerciseMaxGraph from "./graphs/measured-max-graph";
 import { useWindowSize } from "../common/use-window-stats";
 
 const MeasuredMaxGraphs = () => {

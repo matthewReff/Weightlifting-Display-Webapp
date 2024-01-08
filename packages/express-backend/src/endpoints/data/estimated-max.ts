@@ -82,9 +82,9 @@ const extractEstimatedMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseN
   return estimatedMaxExercises;
 }
 
-export interface GetEstimatedMaxQueryParams extends Record<string, string | undefined>{
+export interface GetEstimatedMaxQueryParams extends Record<string, string>{
   exerciseName: string,
-  maxEstimationFunction?: OneRepEstimateFunction
+  maxEstimationFunction: OneRepEstimateFunction
 }
 export type GetEstimatedMaxResponse = EstimatedMaxData[];
 

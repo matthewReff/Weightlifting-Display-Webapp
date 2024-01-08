@@ -3,14 +3,14 @@ import { LiftingDay, Set } from "@tendec/shared-types/src/types";
 import { setAGreaterThanB } from "@tendec/shared-types/src/type-functions";
 import { getStructuredData } from "../../db/get-data";
 
-export interface ExerciseMaxData {
+export interface MeasuredMaxData {
     weight: number,
     repetitions: number,
     date: string
 }
 
-const extractExerciseMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseName: string): ExerciseMaxData[] => {
-  const rollingMaxExercises: ExerciseMaxData[] = [];
+const extractMeasuredMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseName: string): MeasuredMaxData[] => {
+  const rollingMaxExercises: MeasuredMaxData[] = [];
 
   const MIN_WEIGHT = -999;
   let maxSetSoFar: Set = {
@@ -36,17 +36,17 @@ const extractExerciseMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseNa
   return rollingMaxExercises;
 }
 
-export interface GetExerciseMaxQueryParams extends Record<string, string>{
+export interface GetMeasuredMaxQueryParams extends Record<string, string>{
   exerciseName: string
 }
-export type GetExerciseMaxResponse = ExerciseMaxData[];
+export type GetMeasuredMaxResponse = MeasuredMaxData[];
 
 const router = Router();
-router.get('/exercise-max', async (req: Request<{}, {}, {}, GetExerciseMaxQueryParams>, res: Response<GetExerciseMaxResponse>) => {
+router.get('/exercise-max', async (req: Request<{}, {}, {}, GetMeasuredMaxQueryParams>, res: Response<GetMeasuredMaxResponse>) => {
   const { exerciseName } = req.query;
 
   const structuredLiftingData = await getStructuredData();
-  const exerciseMaxData = extractExerciseMaxFromLiftingDays(structuredLiftingData, exerciseName);
+  const exerciseMaxData = extractMeasuredMaxFromLiftingDays(structuredLiftingData, exerciseName);
 
   res.json(exerciseMaxData);
 });
