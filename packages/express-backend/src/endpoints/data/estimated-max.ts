@@ -37,19 +37,24 @@ const getEstimatedMax = ({
   liftedWeight,
   repetitions
 }: GetEstimatedMax): number => {
+  let estimatedOneRep;
   if (estimationFunction === "Brzycki") {
-    return estimatedOneRepMaxWithBrzycki({
+    estimatedOneRep = estimatedOneRepMaxWithBrzycki({
       liftedWeight,
       repetitions
     })
   } else if (estimationFunction === "Epley") {
-    return estimatedOneRepMaxWithEpley({
+    estimatedOneRep = estimatedOneRepMaxWithEpley({
       liftedWeight,
       repetitions
     });
   }
 
-  throw new Error(`Unknown one rep max estimated function ${estimationFunction}`);
+  if (estimatedOneRep === undefined) {
+    throw new Error(`Unknown one rep max estimated function ${estimationFunction}`);
+  }
+
+  return Math.round(estimatedOneRep);
 }
 
 const extractEstimatedMaxFromLiftingDays = (liftingDays: LiftingDay[], exerciseName: string, maxEstimationFunction?: OneRepEstimateFunction): EstimatedMaxData[] => {

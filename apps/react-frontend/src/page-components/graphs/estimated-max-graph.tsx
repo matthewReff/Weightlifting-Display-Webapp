@@ -7,6 +7,7 @@ import { LineChart } from "recharts";
 import { EstimatedMaxData } from "@tendec/express-backend/src/endpoints/data/estimated-max";
 import { GraphRange } from "./types";
 import { fetchEstimatedMax } from "../../lib/backend/fetch-estimated-max";
+import { roundToNearest } from "../../lib/round";
 
 export interface ExerciseWeightGraphProps {
   width?: number,
@@ -42,7 +43,7 @@ function EstimatedMaxWeightGraph({
     const minWeight = Math.min(...weights);
 
     const magnitude  = Math.abs(maxWeight - minWeight);
-    const padding = magnitude * 0.2;
+    const padding = roundToNearest(magnitude * 0.2, 5);
 
     yMin = minWeight - padding;
     yMax = maxWeight + padding;
@@ -67,7 +68,6 @@ function EstimatedMaxWeightGraph({
       </div>
     );
   };
-
 
   return (
     <div className="bg-background-800 h-min w-min pr-6 text-center border-2">

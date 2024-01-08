@@ -7,6 +7,7 @@ import { LineChart } from "recharts";
 import { MeasuredMaxData } from "@tendec/express-backend/src/endpoints/data/measured-max";
 import { fetchMeasuredMax } from "../../lib/backend/fetch-exercise-max";
 import { GraphRange } from "./types";
+import { roundToNearest } from "../../lib/round";
 
 export interface MeasuredMaxGraphProps {
   width?: number,
@@ -42,7 +43,7 @@ function MeasuredMaxWeightGraph({
     const minWeight = Math.min(...weights);
 
     const magnitude  = Math.abs(maxWeight - minWeight);
-    const padding = magnitude * 0.2;
+    const padding = roundToNearest(magnitude * 0.2, 5);
 
     yMin = minWeight - padding;
     yMax = maxWeight + padding;
@@ -68,7 +69,6 @@ function MeasuredMaxWeightGraph({
       </div>
     );
   };
-
 
   return (
     <div className="bg-background-800 h-min w-min pr-6 text-center border-2">
