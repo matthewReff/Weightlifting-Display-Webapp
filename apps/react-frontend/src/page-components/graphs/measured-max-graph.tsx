@@ -77,7 +77,7 @@ function MeasuredMaxWeightGraph({
         <XAxis dataKey="date" stroke={PRIMARY_COLOR}/>
         <YAxis domain={[yMin, yMax]} stroke={PRIMARY_COLOR}/>
         <Line type="monotone" dataKey="weight" stroke={PRIMARY_COLOR}/>
-        <MeasuredMaxTooltip content={<MeasuredMaxTooltip/>}/>
+        <Tooltip content={<MeasuredMaxTooltip/>}/>
       </LineChart>
     </div>
   );
