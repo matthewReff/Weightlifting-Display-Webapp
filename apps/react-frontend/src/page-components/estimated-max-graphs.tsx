@@ -24,13 +24,15 @@ const EstimatedMaxGraphs = () => {
 
   return (
     <div>
-      <Select
-        options={selectOptions}
-        onChange={e => {
-          setSelectedMaxEstimationFunction(e.target.value as OneRepEstimateFunction);
-        }}
-      />
       <h1 className="text-center text-4xl py-2">Estimated Max Weight Lifted</h1>
+      <div className="flex justify-center">
+        <Select
+          options={selectOptions}
+          onChange={e => {
+            setSelectedMaxEstimationFunction(e.target.value as OneRepEstimateFunction);
+          }}
+        />
+      </div>
       <div className="flex flex-wrap justify-between px-10 py-2">
         <EstimatedMaxGraph
           width={halfWidth}

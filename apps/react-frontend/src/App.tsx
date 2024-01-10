@@ -22,12 +22,14 @@ function App() {
 
   return (
     <div className="bg-background">
-      <Select
-        options={selectOptions}
-        onChange={e => {
-          setSelectedGraphsToDisplay(e.target.value);
-        }}
-      />
+      <div className="flex justify-center">
+        <Select
+          options={selectOptions}
+          onChange={e => {
+            setSelectedGraphsToDisplay(e.target.value);
+          }}
+        />
+      </div>
       { selectedGraphsToDisplay === GraphsToDisplay.MEASURED_MAX &&
         <MeasuredMaxGraphs />
       }

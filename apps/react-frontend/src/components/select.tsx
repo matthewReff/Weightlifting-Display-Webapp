@@ -11,6 +11,7 @@ export interface SelectProps extends FormSelectProps {
 const Select = (props: SelectProps) => {
   return (
     <Form.Select
+      className={`p-2 bg-background-800 border-2 ${props.className}`}
       {...props}
     >
       {props.options.map((option) => {
