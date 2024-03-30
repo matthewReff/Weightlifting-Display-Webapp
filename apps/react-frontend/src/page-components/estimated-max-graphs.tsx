@@ -1,7 +1,7 @@
 import EstimatedMaxGraph from "./graphs/estimated-max-graph";
 import { useWindowSize } from "../common/use-window-stats";
 import { useState } from "react";
-import { OneRepEstimateFunction } from "@tendec/express-backend/src/endpoints/data/estimated-max";
+import { OneRepEstimateFunction } from "../../../express-backend/src/endpoints/data/estimated-max";
 import Select, { SelectOption } from "../components/select";
 
 const EstimatedMaxGraphs = () => {

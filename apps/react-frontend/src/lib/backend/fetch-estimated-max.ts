@@ -1,6 +1,6 @@
 import { GetEstimatedMaxQueryParams, GetEstimatedMaxResponse, OneRepEstimateFunction } from "@tendec/express-backend/src/endpoints/data/estimated-max";
 import { getDebugInfoFromResponse } from "../api-utils"
-import { BASE_API_URL } from "@tendec/express-backend/src/constants"
+import { BASE_API_URL } from "@tendec/express-backend/src/constants";
 
 export const fetchEstimatedMax = async (exerciseName: string, maxEstimationFunction: OneRepEstimateFunction) => {
   const queryParams: GetEstimatedMaxQueryParams = {
